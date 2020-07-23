@@ -1,0 +1,11 @@
+name: SupplyDemandShop
+version: 1.0
+main: net.spectralskyblock.src.Main
+authors: [DepressedChan]
+description: Supply and Demand ShopGUIPlus Modifier Plugin
+softdepend: [ShopGUIPlus]
+commands:
+  shopdebug:
+    usage: /shopdebug
+    description: Shop Debug Command for the Supply and Demand Modifier Plugin
+    permission: supplydemandshop.admin
