@@ -18,6 +18,7 @@ public class Item {
         this.originalBuyPrice = shopItem.getBuyPrice();
         this.originalSellPrice = shopItem.getSellPrice();
         this.allowedToChangePrice = allowedToChangePrice;
+
         shopItem.setBuyPrice(buyPrice);
         shopItem.setSellPrice(sellPrice);
     }

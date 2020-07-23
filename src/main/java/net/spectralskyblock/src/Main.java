@@ -28,7 +28,7 @@ public class Main extends JavaPlugin {
                     loadCommands();
                     System.out.println("Supply/Demand Shop Plugin Loaded!");
                 }
-            }.runTaskLater(this, 20); // 7 second delay or the plugin freaks out
+            }.runTaskLater(this, 20); // 1 second delay or the plugin freaks out
         }
     }
 
@@ -59,9 +59,6 @@ public class Main extends JavaPlugin {
     }
 
     public boolean hasShopGUIPlus() {
-        if (getServer().getPluginManager().getPlugin("ShopGUIPlus") != null) {
-            return true;
-        }
-        return false;
+        return (getServer().getPluginManager().getPlugin("ShopGUIPlus") != null);
     }
 }
