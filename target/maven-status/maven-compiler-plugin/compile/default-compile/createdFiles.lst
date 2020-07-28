@@ -1,7 +1,9 @@
+net\spectralskyblock\src\config\ConfigHandler.class
 net\spectralskyblock\src\events\ShopEvents.class
 net\spectralskyblock\src\commands\ShopDebug.class
 net\spectralskyblock\src\Main$1.class
 net\spectralskyblock\src\shop\DataHandler.class
 net\spectralskyblock\src\shop\Item.class
 net\spectralskyblock\src\Main.class
+net\spectralskyblock\src\config\ConfigData.class
 net\spectralskyblock\src\utils\Utils.class

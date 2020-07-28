@@ -3,6 +3,7 @@ package net.spectralskyblock.src.shop;
 import net.brcdev.shopgui.ShopGuiPlusApi;
 import net.brcdev.shopgui.shop.ShopItem;
 import net.spectralskyblock.src.Main;
+import net.spectralskyblock.src.config.ConfigData;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -150,27 +151,6 @@ public class DataHandler {
             createNewData(categories);
         } else {
             loadData(categories);
-            editPrices();
-        }
-    }
-
-    public void editPrices()
-    {
-        for (Item item : itemList)
-        {
-            ShopItem shopItem = item.getShopItem();
-            int buyMultiplier = ((int) item.getAmountBought() / 5000);
-            int sellMultiplier = ((int) item.getAmountSold() / 5000);
-            if (item.isAllowedToChangePrice()) {
-                if (buyMultiplier >= 1 && shopItem.getBuyPrice() > 1) {
-                    if (shopItem.getSellPrice() != -1) shopItem.setSellPrice(shopItem.getSellPrice() + (buyMultiplier * 0.1));
-                    if (shopItem.getBuyPrice() != -1) shopItem.setBuyPrice(shopItem.getBuyPrice() - (buyMultiplier * 0.1));
-                }
-                if (sellMultiplier >= 1 && shopItem.getSellPrice() > 1) {
-                    if (shopItem.getSellPrice() != -1) shopItem.setSellPrice(shopItem.getSellPrice() - (sellMultiplier * 0.1));
-                    if (shopItem.getBuyPrice() != -1)  shopItem.setBuyPrice(shopItem.getBuyPrice() + (sellMultiplier * 0.1));
-                }
-            }
         }
     }
 
