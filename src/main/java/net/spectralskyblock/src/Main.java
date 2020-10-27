@@ -7,10 +7,13 @@ import net.spectralskyblock.src.events.ShopEvents;
 import net.spectralskyblock.src.shop.DataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +64,11 @@ public class Main extends JavaPlugin {
     public static List<String> getCategoryNames()
     {
         List<String> categories = new ArrayList<String>();
-        FileConfiguration shopConfig = ShopGuiPlusApi.getPlugin().getConfigShops().getConfig();
-        for (String category : shopConfig.getConfigurationSection("shops").getKeys(false)) {
-            categories.add(category);
+        FileConfiguration shopConfig = YamlConfiguration.loadConfiguration(new File("plugins/ShopGUIPlus/", "config.yml"));
+        if (shopConfig.getConfigurationSection("shopMenuItems") != null) {
+            for (String string : shopConfig.getConfigurationSection("shopMenuItems").getKeys(false)) {
+                categories.add(shopConfig.getString("shopMenuItems." + string + ".shop"));
+            }
         }
 
         return categories;

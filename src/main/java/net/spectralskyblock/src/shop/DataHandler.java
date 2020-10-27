@@ -3,7 +3,6 @@ package net.spectralskyblock.src.shop;
 import net.brcdev.shopgui.ShopGuiPlusApi;
 import net.brcdev.shopgui.shop.ShopItem;
 import net.spectralskyblock.src.Main;
-import net.spectralskyblock.src.config.ConfigData;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -39,12 +38,14 @@ public class DataHandler {
             return;
         }
         for (String category : categories) {
-            List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
-            for (ShopItem item : shopItems) {
-                Item i = getItemFromShopItem(item);
-                backupData.set("shops." + category + "." + item.getId() + ".amountBought", i.getAmountBought());
-                backupData.set("shops." + category + "." + item.getId() + ".amountSold", i.getAmountSold());
-                backupData.set("shops." + category + "." + item.getId() + ".canChangePrice", i.isAllowedToChangePrice());
+            if (ShopGuiPlusApi.getShop(category) != null) {
+                List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
+                for (ShopItem item : shopItems) {
+                    Item i = getItemFromShopItem(item);
+                    backupData.set("shops." + category + "." + item.getId() + ".amountBought", i.getAmountBought());
+                    backupData.set("shops." + category + "." + item.getId() + ".amountSold", i.getAmountSold());
+                    backupData.set("shops." + category + "." + item.getId() + ".canChangePrice", i.isAllowedToChangePrice());
+                }
             }
         }
         try {
@@ -69,10 +70,12 @@ public class DataHandler {
 
     public void createNewData(List<String> categories) {
         for (String category : categories) {
-            List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
-            for (ShopItem item : shopItems) {
-                Item i = new Item(item, 0, 0, true, item.getBuyPrice(), item.getSellPrice());
-                itemList.add(i);
+            if (ShopGuiPlusApi.getShop(category) != null) {
+                List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
+                for (ShopItem item : shopItems) {
+                    Item i = new Item(item, 0, 0, true, item.getBuyPrice(), item.getSellPrice());
+                    itemList.add(i);
+                }
             }
         }
     }
@@ -82,25 +85,27 @@ public class DataHandler {
             return;
         }
         for (String category : categories) {
-            List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
-            for (ShopItem item : shopItems) {
+            if (ShopGuiPlusApi.getShop(category) != null) {
+                List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
+                for (ShopItem item : shopItems) {
 
-                double amountBought = 0;
-                double amountSold = 0;
-                double sellPrice = item.getSellPrice();
-                double buyPrice = item.getBuyPrice();
-                boolean canChangePrice = true;
-                String id = item.getId();
+                    double amountBought = 0;
+                    double amountSold = 0;
+                    double sellPrice = item.getSellPrice();
+                    double buyPrice = item.getBuyPrice();
+                    boolean canChangePrice = true;
+                    String id = item.getId();
 
-                if (data.get("shops." + category + "." + id) != null) {
-                    amountBought = data.getDouble("shops." + category + "." + id + ".amountBought");
-                    amountSold = data.getDouble("shops." + category + "." + id + ".amountSold");
-                    buyPrice = data.getDouble("shops." + category + "." + id + ".finalBuy");
-                    sellPrice = data.getDouble("shops." + category + "." + id + ".finalSell");
-                    canChangePrice = data.getBoolean("shops." + category + "." + id + ".canChangePrice");
+                    if (data.get("shops." + category + "." + id) != null) {
+                        amountBought = data.getDouble("shops." + category + "." + id + ".amountBought");
+                        amountSold = data.getDouble("shops." + category + "." + id + ".amountSold");
+                        buyPrice = data.getDouble("shops." + category + "." + id + ".finalBuy");
+                        sellPrice = data.getDouble("shops." + category + "." + id + ".finalSell");
+                        canChangePrice = data.getBoolean("shops." + category + "." + id + ".canChangePrice");
+                    }
+                    Item i = new Item(item, amountBought, amountSold, canChangePrice, buyPrice, sellPrice);
+                    itemList.add(i);
                 }
-                Item i = new Item(item, amountBought, amountSold, canChangePrice, buyPrice, sellPrice);
-                itemList.add(i);
             }
         }
     }
@@ -118,14 +123,16 @@ public class DataHandler {
             return;
         }
         for (String category : categories) {
-            List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
-            for (ShopItem item : shopItems) {
-                Item i = getItemFromShopItem(item);
-                data.set("shops." + category + "." + item.getId() + ".amountBought", i.getAmountBought());
-                data.set("shops." + category + "." + item.getId() + ".amountSold", i.getAmountSold());
-                data.set("shops." + category + "." + item.getId() + ".finalBuy", i.getShopItem().getBuyPrice());
-                data.set("shops." + category + "." + item.getId() + ".finalSell", i.getShopItem().getSellPrice());
-                data.set("shops." + category + "." + item.getId() + ".canChangePrice", i.isAllowedToChangePrice());
+            if (ShopGuiPlusApi.getShop(category) != null) {
+                List<ShopItem> shopItems = ShopGuiPlusApi.getShop(category).getShopItems();
+                for (ShopItem item : shopItems) {
+                    Item i = getItemFromShopItem(item);
+                    data.set("shops." + category + "." + item.getId() + ".amountBought", i.getAmountBought());
+                    data.set("shops." + category + "." + item.getId() + ".amountSold", i.getAmountSold());
+                    data.set("shops." + category + "." + item.getId() + ".finalBuy", i.getShopItem().getBuyPrice());
+                    data.set("shops." + category + "." + item.getId() + ".finalSell", i.getShopItem().getSellPrice());
+                    data.set("shops." + category + "." + item.getId() + ".canChangePrice", i.isAllowedToChangePrice());
+                }
             }
         }
         try {

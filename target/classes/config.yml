@@ -1,9 +1,0 @@
-messages:
-  BuyPriceChanged = "&3&l[!] &bBuy Price of %item% &bchanged from %oldbuyprice% &bto %newbuyprice%"
-  SellPriceChanged = "&3&l[!] &bSell Price of %item% &bchanged from %oldsellprice% &bto %newsellprice%"
-  EconomyReset = "&4&l[!] &cThe Economy has been RESET!"
-  CommandUse: "&4&l[!] &cUsage: /shopdebug reseteco"
-  NoPermission = "&4&l[!] &cYou do not have permission to use this command!"
-defaultData:
-  amountSoldForChange = 5000
-  amountToChangeBy = 0.1

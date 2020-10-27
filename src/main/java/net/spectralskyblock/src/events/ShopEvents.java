@@ -49,6 +49,7 @@ public class ShopEvents implements Listener {
                 if (multiplier >= 1 && item.isAllowedToChangePrice() && buyPrice - amountToChangeBy >= 1)
                 {
                     hasChanged = true;
+                    amountToChangeBy *= multiplier;
                     if (sellPrice != -1) shopItem.setSellPrice( sellPrice + amountToChangeBy);
                     if (buyPrice != -1) shopItem.setBuyPrice( buyPrice - amountToChangeBy);
                 }
@@ -60,6 +61,7 @@ public class ShopEvents implements Listener {
                 if (multiplier >= 1 && item.isAllowedToChangePrice() && sellPrice - amountToChangeBy >= 1)
                 {
                     hasChanged = true;
+                    amountToChangeBy *= multiplier;
                     if (sellPrice != -1) shopItem.setSellPrice( sellPrice - amountToChangeBy);
                     if (buyPrice != -1) shopItem.setBuyPrice( buyPrice + amountToChangeBy);
                 }
